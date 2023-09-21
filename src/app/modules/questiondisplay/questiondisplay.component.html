@@ -1,0 +1,286 @@
+<div class="page_sec h-full">
+  <div class="flex p-3 page_top_sec justify-content-between align-items-center">
+    <div class="flex w-9">
+      <div class="flex flex-column w-4 mr-3">
+        <!-- <p-multiSelect
+
+          class="w-100 custom_select"
+
+          [options]=""
+
+         
+
+          defaultLabel="Skills..."
+
+          optionLabel="skill"
+
+          display="chip"
+
+       
+
+        ></p-multiSelect> -->
+
+        <div class="flex mr-3 align-items-center">
+          <label class="font-bold block heading mr-3 ml-2">
+            Manager: {{ Managername }}</label
+          >
+
+          <p class="w-full heading m-0"></p>
+        </div>
+      </div>
+
+      <div class="card flex">
+        <!-- <div>
+
+          <svg
+
+            xmlns="http://www.w3.org/2000/svg"
+
+            height="40"
+
+            (click)="submitForm()"
+
+            style="cursor: pointer"
+
+            viewBox="0 0 512 512"
+
+          >
+
+            <path
+
+              d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256z"
+
+              fill="#98012e"
+
+            />
+
+            <path
+
+              d="M281 385c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l71-71L136 280c-13.3 0-24-10.7-24-24s10.7-24 24-24l182.1 0-71-71c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L393 239c9.4 9.4 9.4 24.6 0 33.9L281 385z"
+
+              fill="white"
+
+            />
+
+          </svg>
+
+        </div> -->
+
+        <div class="flex question_selection">
+          <div class="flex mr-3 align-items-center">
+            <label class="font-bold block heading mr-3 ml-8">
+              FileName: {{ fileName }}</label
+            >
+
+            <p class="w-full heading m-0"></p>
+          </div>
+
+          <!-- <div class="flex mr-3 align-items-center">
+
+            <label class="font-bold block heading mr-3"> Cutoff :</label>
+
+            <input
+
+              [(ngModel)]="cuttoff"
+
+              name="cutoff"
+
+              placeholder="Cutoff"
+
+              class="w-3rem custom_inp p-inputtext w-full p-1"
+
+              required
+
+            /> -->
+
+          <!-- </div>
+
+          <div class="flex mr-3 align-items-center">
+
+            <label class="font-bold block heading mr-3">
+
+              Duration (in hrs) :</label
+
+            > -->
+
+          <!-- <input
+
+              class="w-3rem custom_inp p-inputtext w-full p-1"
+
+              [(ngModel)]="duration"
+
+              name="duration"
+
+              placeholder="(Minutes)"
+
+              required
+
+            /> -->
+
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="save_sec flex cursor-pointer" title="Back">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="18"
+        class="icon"
+        fill="#fff"
+        href="/dashboard"
+        [routerLink]="['/dashboard']"
+        viewBox="0 0 448 512"
+      >
+        <path
+          d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+        />
+      </svg>
+    </div>
+  </div>
+
+  <!-- <h2 class="mr-2 heading pb-4 pt-4 ">Assessment</h2> -->
+
+  <ng-container *ngIf="FinalizedQuestions.length > 0">
+    <div
+      *ngFor="let question of FinalizedQuestions; let i = index"
+      class="question_sec"
+    >
+      <h3>{{ i + 1 }}. {{ question.question }}</h3>
+
+     
+
+      <!-- <ng-container *ngIf="question.questionType === 'Checkbox'">
+        <div class="vertical-options-checkbox display-row">
+          <div *ngFor="let option of question.options" class="option">
+            <p-checkbox
+              [(ngModel)]="question.selectedOption"
+              class="mr-2"
+              [value]="option"
+              inputId="binary"
+            ></p-checkbox>
+
+            <span>
+              {{ option }}
+            </span>
+          </div>
+
+          <div>
+            <span class="option1"> Answer : {{ question.answer }} </span>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="question.questionType === 'Radio'">
+        <div class="vertical-options">
+          <div *ngFor="let option of question.options" class="option">
+            <p-radioButton
+              [(ngModel)]="question.selectedOption"
+              [value]="option"
+              class="mr-1"
+            ></p-radioButton>
+
+            {{ option }}
+          </div>
+
+          <div>
+            <span class="option1"> Answer : {{ question.answer }} </span>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="question.questionType === 'Text'">
+        <span class="p-float-label">
+          <textarea
+            id="float-input"
+            rows="3"
+            cols="50"
+            [(ngModel)]="question.answer"
+            pInputTextarea
+          ></textarea>
+
+          <label for="float-input">Type Here...</label>
+        </span>
+      </ng-container> -->
+    
+      <ng-container *ngIf="question.questionType === 'Checkbox'">
+        <div class="vertical-options-checkbox display-row">
+          <div *ngFor="let option of question.options" class="option">
+            <p-checkbox
+              [(ngModel)]="question.selectedOption"
+              class="mr-2"
+              [value]="option"
+              inputId="binary"
+              [class.correct-option]="option === question.answer"
+            ></p-checkbox>
+      
+            <span class="correct-option">
+              {{ option }}
+            </span>
+          </div>
+      
+          <div>
+            <span class="option1"> Answer : {{ question.answer }} </span>
+          </div>
+        </div>
+      </ng-container>
+      
+      <ng-container *ngIf="question.questionType === 'Radio'">
+        <div class="vertical-options">
+          <div *ngFor="let option of question.options" class="option">
+            <p-radioButton
+              [(ngModel)]="question.selectedOption"
+              [value]="option"
+              class="mr-1"
+              [class.correct-option]="question.answer.includes(option)"
+               [checked]="option === question.answer"
+            ></p-radioButton>
+      
+            {{ option }}
+          </div>
+      
+          <div>
+            <span class="option1"> Answer : {{ question.answer }} </span>
+          </div>
+        </div>
+      </ng-container>
+      
+    </div>
+
+    <!-- <div class="w-100  flex page_submit_btn_sec px-3 py-2">
+
+ 
+
+        <p-button
+
+          label="Back"
+
+          class="w-100"
+
+          styleClass="p-button-danger"
+
+          onclick="dashpage()"
+
+     
+
+         
+
+        ></p-button>
+
+ 
+
+    </div> -->
+  </ng-container>
+</div>
+
+<!-- <p-card header="Title">
+
+      <p class="m-0">
+
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+
+          quas!
+
+      </p>
+
+  </p-card> -->

@@ -1,0 +1,427 @@
+<p-tabView>
+  <p-tabPanel>
+    <ng-template pTemplate="header">
+      <span>Schedule Page</span>
+    </ng-template>
+
+    <div class="page_sec h-full p-3">
+      <!--Filter and Create button  -->
+
+      <div class="flex justify-content-end mb-3">
+        <button
+          class="btn mr-3 flex align-items-center cursor-pointer"
+          (click)="op.toggle($event)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="#fff"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
+            />
+          </svg>
+
+          <span>Filter</span>
+        </button>
+
+        <button
+          class="btn flex align-items-center cursor-pointer"
+          (click)="addNewRow()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="#fff"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+              fill="#fff"
+            />
+          </svg>
+
+          <span>Create</span>
+        </button>
+      </div>
+
+      <!-- Table Contents -->
+
+      <div class="table-container">
+        <p-table
+          class="custom_table"
+          [columns]="cols"
+          [value]="Tdata"
+          [scrollable]="true"
+          scrollHeight="calc(79vh - 10px)"
+        >
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th pSortableColumn="Managername" style="width: 20rem">
+                Manager <p-sortIcon field="Managername"></p-sortIcon>
+              </th>
+
+              <th style="width: 20rem">File Name</th>
+
+              <th style="width: 3rem">Actions</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-rowData>
+            <tr class="table-row">
+              <td style="width: 20rem">
+                <ng-container
+                  *ngIf="rowData.Managername; else elseManagerTemplate"
+                >
+                  {{ rowData.Managername }}
+                </ng-container>
+
+                <ng-template #elseManagerTemplate>
+                  <div class="w-5">
+                    <p-dropdown
+                      appendTo="body"
+                      class="table_dropdown"
+                      [options]="managerOption"
+                      [(ngModel)]="selectedManager"
+                      placeholder="--Select--"
+                      optionLabel="Managername"
+                      (onChange)="dropFunction(rowData)"
+                    >
+                    </p-dropdown>
+                  </div>
+                </ng-template>
+              </td>
+
+              <td style="width: 20rem">{{ rowData.fileName }}</td>
+
+              <td style="width: 3rem">
+                <!-- Actions Button -->
+
+                <div class="flex ccc">
+                  <!-- Create Icon -->
+
+                  <div class="mr-2 cursor-pointer">
+                    <a
+                      [routerLink]="!rowData.isCreate ? null : ['/create']"
+                      [class.disabled]="!rowData.isCreate"
+                      href="/create"
+                      title="Create"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="#526D82"
+                        height="18"
+                        viewBox="0 0 448 512"
+                      >
+                        <path
+                          d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+
+                  <!-- Edit Icon -->
+
+                  <div class="mr-2 cursor-pointer">
+                    <a
+                      (click)="
+                        handleEditIconClick(
+                          rowData.Managername,
+                          rowData.fileName
+                        )
+                      "
+                      [class.disabled]="!rowData.isEdit"
+                      title="Edit"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="#526D82"
+                        x="0px"
+                        y="0px"
+                        width="24"
+                        height="18"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M 18 2 L 15.585938 4.4140625 L 19.585938 8.4140625 L 22 6 L 18 2 z M 14.076172 5.9238281 L 3 17 L 3 21 L 7 21 L 18.076172 9.9238281 L 14.076172 5.9238281 z"
+                        ></path>
+                      </svg>
+                    </a>
+                  </div>
+
+                  <!-- View Icon -->
+
+                  <div class="mr-2 cursor-pointer">
+                    <a
+                      [class.disabled]="!rowData.isMail"
+                      title="View"
+                      (click)="
+                        onViewClick(rowData.Managername, rowData.fileName)
+                      "
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="#526D82"
+                        height="18"
+                        viewBox="0 0 576 512"
+                      >
+                        <path
+                          d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+
+                  <!-- Mail Icon -->
+
+                  <div class="mr-2 cursor-pointer">
+                    <a
+                      [class.disabled]="!rowData.isMail"
+                      (click)="
+                        openEmailDialog(rowData.Managername, rowData.fileName)
+                      "
+                      title="Mail"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="#526D82"
+                        height="18"
+                        viewBox="0 0 512 512"
+                      >
+                        <path
+                          d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <p-overlayPanel #op styleClass="custom_overlay">
+        <div>
+          <div class="mb-3 flex flex-column">
+            <label class="mb-1" for="manager">Manager</label>
+
+            <p-dropdown
+              appendTo="body"
+              class="w-full table_dropdown"
+              [options]="managerOption"
+              [(ngModel)]="filterManager"
+              placeholder="--Select--"
+              optionLabel="Managername"
+            >
+            </p-dropdown>
+          </div>
+
+          <div class="mb-3 flex flex-column">
+            <label class="mb-1" for="manager">Skill</label>
+
+            <p-multiSelect
+              appendTo="body"
+              class="w-full table_dropdown"
+              [options]="skillSet"
+              [(ngModel)]="filterSkills"
+              placeholder="--Select--"
+              optionLabel="skill"
+            >
+            </p-multiSelect>
+          </div>
+
+          <div class="flex justify-content-end">
+            <button
+              class="btn btn_cancel cursor-pointer mr-3"
+              (click)="op.hide()"
+            >
+              Cancel
+            </button>
+
+            <button class="btn cursor-pointer" (click)="onSearchClick()">
+              Search
+            </button>
+          </div>
+        </div>
+      </p-overlayPanel>
+    </div>
+
+    <!-- Mail Icon -->
+    <p-dialog
+      [visible]="displayEmailDialog"
+      [modal]="true"
+      [draggable]="false"
+      [resizable]="false"
+      [style]="{ width: '25vw' }"
+      [closable]="false"
+    >
+      <p-tabView styleClass="tabview-custom">
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-user"></i>
+
+            <span>New User</span>
+          </ng-template>
+
+          <form (ngSubmit)="sendEmail()">
+            <div class="p-fluid">
+              <div class="p-field">
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="Name"
+                  [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="candidateName"
+                  required
+                />
+              </div>
+
+              <div class="p-field">
+                <input
+                  type="email"
+                  pInputText
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="Email"
+                  [(ngModel)]="candidateEmail"
+                  required
+                />
+              </div>
+
+              <div class="p-field">
+                <p-inputNumber
+                  [(ngModel)]="candidatePhone"
+                  mode="decimal"
+                  [ngModelOptions]="{ standalone: true }"
+                  optionLabel:phone
+                  placeholder="Phone"
+                  inputId="withoutgrouping"
+                  [useGrouping]="false"
+                >
+                </p-inputNumber>
+              </div>
+            </div>
+
+            <div class="flex justify-content-end">
+              <button
+                class="btn btn_cancel cursor-pointer mr-3"
+                (click)="cancelEmailPopup()"
+              >
+                Cancel
+              </button>
+
+              <button class="btn cursor-pointer" (click)="storeCandidate()">
+                Send
+              </button>
+            </div>
+          </form>
+        </p-tabPanel>
+
+        <p-tabPanel header="Header II">
+          <ng-template pTemplate="header">
+            <i class="pi pi-user"></i>
+
+            <span>Existing User</span>
+          </ng-template>
+
+          <div class="mb-3 flex flex-column">
+            <label class="mb-1" for="skill">Candidate Name</label>
+
+            <p-multiSelect
+              appendTo="body"
+              class="w-full table_dropdown"
+              placeholder="--Select--"
+              [options]="candidateNames"
+              [(ngModel)]="selectedCandidates"
+            >
+            </p-multiSelect>
+          </div>
+
+          <div class="flex justify-content-end">
+            <button
+              class="btn btn_cancel cursor-pointer mr-3"
+              (click)="cancelEmailPopup()"
+            >
+              Cancel
+            </button>
+
+            <button class="btn cursor-pointer" (click)="loadCandidate()">
+              Send
+            </button>
+          </div>
+
+          <p></p>
+        </p-tabPanel>
+      </p-tabView>
+    </p-dialog>
+  </p-tabPanel>
+
+  <!----------------------------------------Candidate Page---------------------------------------------------------->
+
+  <p-tabPanel>
+    <ng-template pTemplate="header">
+      <span>Candidate Page</span>
+    </ng-template>
+
+    <!-- filter -->
+
+    <div class="flex justify-content-end mb-3">
+      <button
+        class="btn mr-3 flex align-items-center cursor-pointer"
+        (click)="op.toggle($event)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="#fff"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
+          />
+        </svg>
+
+        <span>Filter</span>
+      </button>
+    </div>
+
+    <div class="table-container">
+      <p-table
+        class="custom_table"
+        [columns]="cols"
+        [value]="candidateList"
+        [scrollable]="true"
+        scrollHeight="calc(79vh - 10px)"
+      >
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th pSortableColumn="managerName" style="width: 20rem">
+              Manager <p-sortIcon field="managerName"></p-sortIcon>
+            </th>
+
+            <th style="width: 20rem">Candidate Name</th>
+
+            <th style="width: 20rem">File Name</th>
+
+            <th style="width: 20rem">Status</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData>
+          <tr class="table-row">
+            <td style="width: 20rem">{{ rowData.email_Managername }}</td>
+
+            <td style="width: 20rem">{{ rowData.candidateName }}</td>
+
+            <td style="width: 20rem">{{ rowData.email_Filename }}</td>
+
+            <td style="width: 20rem">{{ rowData.email_Status }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </p-tabPanel>
+</p-tabView>

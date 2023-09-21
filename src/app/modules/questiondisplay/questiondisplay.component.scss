@@ -1,0 +1,297 @@
+// .page_sec {
+//     background-color: #003268;
+//     color: white;
+//     padding: auto;
+//     width: 100%;
+//     height: fit-content;
+
+// }
+
+// .heading {
+//     color: white;
+// }
+
+// .question_sec {
+//     color: white;
+//     max-height: 450px;
+//     overflow: hidden auto;
+
+// }
+// .choices {
+//     margin-bottom: 5px;
+// }
+
+//  .page_submit_btn_sec {
+//     // background-color: #003268;
+//      // position: absolute;
+//     // left: 0;
+//     // bottom: 0;
+//      justify-content: end;
+//  }
+
+//  .highlighted {
+//      background-color: yellow;
+//      /* Change this to the highlight color you prefer */
+//      font-weight: bold;
+//      /* Add any other styling you want */
+//  }
+
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+
+
+
+}
+
+.page_sec {
+
+    background-color: #27374D;
+
+    color: white;
+
+    padding: auto;
+
+    // width: 100%;
+
+    height: fit-content;
+
+    //margin-left: 20px;
+
+    max-width: 100%;
+
+    //font-family:Helvetica;
+
+
+
+}
+
+
+
+.heading {
+
+    color: white;
+
+
+
+
+
+    //text-align: center;
+
+    margin-left: 47%;
+
+    width: 500px;
+
+}
+
+
+
+.question_sec {
+
+    color: white;
+
+    max-height: 450px;
+
+    overflow: hidden auto;
+
+    margin-left: 25%;
+
+
+
+}
+
+.choices {
+
+    margin-bottom: 5px;
+
+}
+
+
+
+.page_submit_btn_sec {
+
+    // background-color: #003268;
+
+    // position: absolute;
+
+    // left: 0;
+
+    // bottom: 0;
+
+    justify-content: end;
+
+}
+
+////
+
+///
+
+
+
+.page_sec {
+
+    height: 100%;
+
+    width: 100%;
+
+
+
+    background-color: #27374d;
+
+    .page_top_sec {
+
+        background: #526D82;
+
+        //margin-right: 60px;
+
+        // margin-left: 70px;
+
+        // margin-bottom: 40px;
+
+        height: 70px;
+
+        padding-left: 0px;
+
+        margin-left: 0px;
+
+
+
+    }
+
+}
+
+
+
+.vertical-options {
+
+
+
+    display: flex;
+
+
+
+    flex-direction: column;
+    /* Display options vertically */
+
+    // margin: 20px;
+
+
+
+}
+
+
+
+
+
+
+
+.option {
+
+
+
+    margin-bottom: 10px;
+    /* Add space between options */
+
+    margin-right: 20px;
+
+    margin-left: 3px;
+
+    font-weight: bold;
+
+    ;
+
+}
+
+//   .vertical-options-checkbox{
+
+//     display: flex;
+
+
+
+//     flex-direction: column;
+
+//    }
+
+// .p-checkbox-box{
+
+//    
+
+// }
+
+.option1 {
+
+
+
+    margin-bottom: 10px;
+    /* Add space between options */
+
+    margin-right: 20px;
+
+    margin-left: 3px;
+
+    font-weight: bold;
+
+    background: #526D82;
+
+    color: white;
+
+}
+
+:host ::ng-deep .p-checkbox-box {
+
+    margin: 4px 0px 0px 0px;
+
+}
+
+:host ::ng-deep .p-radiobutton-box {
+
+    height: 20px;
+
+    width: 20px;
+
+    border-radius: 100%;
+
+}
+
+:host ::ng-deep .p-inputtext {
+
+    height: 60px;
+
+    width: 560px;
+
+}
+:host ::ng-deep .question-column{
+    padding: 8px;
+    text-align: center;
+}
+
+
+
+
+
+
+.save_sec {
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid #fff;
+
+    border-radius: 20px;
+
+}
+
+
+.correct-option {
+    background-color:blue;
+   // color: blue;
+    //border-radius: 3px;
+  }

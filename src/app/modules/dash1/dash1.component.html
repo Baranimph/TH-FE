@@ -1,0 +1,117 @@
+<div class="page_sec h-full">
+  <div class="flex p-3 page_top_sec justify-content-between align-items-center">
+    <div class="flex w-9">
+      <div class="flex flex-column w-4 mr-3">
+        <p-multiSelect
+          class="w-100 custom_select"
+          [options]="skillSet"
+          [(ngModel)]="selectedSkill"
+          defaultLabel="Skills..."
+          optionLabel="skill"
+          display="chip"
+          (onPanelHide)="submitForm()"
+        ></p-multiSelect>
+      </div>
+      <div class="card flex">
+        
+
+        <div class="flex question_selection">
+          <div class="flex mr-3 align-items-center">
+            <label class="font-bold block heading mr-3"> Selected: </label>
+            <p class="w-full heading m-0">
+              {{ (selectedQuestions && selectedQuestions.length) || 0 }}
+            </p>
+          </div>
+          <div class="flex mr-3 align-items-center">
+            <label class="font-bold block heading mr-3"> Cutoff :</label>
+            <input
+              [(ngModel)]="cutoff"
+              name="cutoff"
+              class="w-3rem custom_inp p-inputtext w-full p-1"
+              required
+            />
+            
+          </div>
+          <div class="flex mr-3 align-items-center">
+            <label class="font-bold block heading mr-3">
+              Duration (in minutes) :</label
+            >
+            <input
+              class="w-3rem custom_inp p-inputtext w-full p-1"
+              [(ngModel)]="duration"
+              name="duration"
+              required
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="save_sec flex cursor-pointer"
+      *ngIf="emptySkill === false"
+      pTooltip="Save"
+      (click)="saveSelected()"
+    >
+      <svg
+        id="Layer_1"
+        width="26"
+        viewBox="0 0 30 30"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        fill="white"
+      >
+        <path
+          d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
+        />
+        <rect height="5" width="2" x="16" y="4" />
+      </svg>
+    </div>
+  </div>
+  
+
+
+
+    <ng-container *ngIf="TotalQuestions">
+  <div class="flex mt-4">
+    <div class="flex flex-column w-5 mr-4 px-3" *ngFor="let skill of TotalQuestions | keyvalue">
+      <h3 class="m-0 p-2 asses_hdr">{{ skill.key }}</h3>
+      <div class="question_sec">
+        <table class="design-table">
+          <thead>
+            <tr>
+              <th class="checkbox-column"></th>
+              <th class="question-column">Question</th>
+              <th class="difficulty-column"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let question of skill.value" class="table-row">
+              <td class="checkbox-column">
+                <p-checkbox
+                  [(ngModel)]="question.selected"
+                  (onChange)="checkboxChanged(question)"
+                  [binary]="true"
+                  [inputId]="'checkbox-' + question._id"
+                ></p-checkbox>
+              </td>
+              <td class="question-column">
+                <label [for]="'checkbox-' + question._id" style="cursor: pointer;">
+                  <span class="question-text">{{ question.question }}</span>
+                </label>
+              </td>
+              <td class="difficulty-column">
+                <span *ngIf="question.Difficulty_Level === 'E'" class="difficulty-badge easy">E</span>
+                <span *ngIf="question.Difficulty_Level === 'M'" class="difficulty-badge medium">M</span>
+                <span *ngIf="question.Difficulty_Level === 'H'" class="difficulty-badge hard">H</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-container>  
+
+
+</div>
